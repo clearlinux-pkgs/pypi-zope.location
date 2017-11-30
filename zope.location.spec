@@ -4,48 +4,107 @@
 #
 Name     : zope.location
 Version  : 4.0.3
-Release  : 3
+Release  : 4
 URL      : https://pypi.python.org/packages/38/8a/863ded50bb2c795299dd9168b924b03e38a90731dfbe5264e0418c257ae4/zope.location-4.0.3.tar.gz
 Source0  : https://pypi.python.org/packages/38/8a/863ded50bb2c795299dd9168b924b03e38a90731dfbe5264e0418c257ae4/zope.location-4.0.3.tar.gz
 Summary  : Zope Location
 Group    : Development/Tools
 License  : ZPL-2.1
+Requires: zope.location-legacypython
+Requires: zope.location-python3
 Requires: zope.location-python
+Requires: Sphinx
+Requires: coverage
+Requires: nose
+Requires: setuptools
+Requires: zope.interface
+Requires: zope.proxy
+Requires: zope.schema
 BuildRequires : pbr
 BuildRequires : pip
-BuildRequires : pluggy
-BuildRequires : py-python
-BuildRequires : pytest
 BuildRequires : python-dev
 BuildRequires : python3-dev
 BuildRequires : setuptools
-BuildRequires : tox
-BuildRequires : virtualenv
+BuildRequires : zope.event
 BuildRequires : zope.interface
 BuildRequires : zope.proxy
 BuildRequires : zope.schema
 
 %description
-Zope Location
 =============
-Overview
-========
-In Zope3, location are special objects that has a structural location.
+        
+        Overview
+        ========
+        
+        In Zope3, location are special objects that has a structural location.
+        
+        
+        =======
+        CHANGES
+        =======
+        
+        4.0.3 (2014-03-19)
+        ------------------
+        
+        - Added Python 3.4 support.
+        
+        - Updated ``boostrap.py`` to version 2.2.
+        
+        
+        4.0.2 (2013-03-11)
+        ------------------
+        
+        - Changed the behavior of ``LocationProxy``'s ``__setattr__()`` to correctly
+          behave when dealing with the pure Python version of the ``ProxyBase``
+          class. Also added a test suite that fully tests the pure Python proxy
+          version of the ``LocationProxy`` class.
+        
+        
+        4.0.1 (2013-02-19)
+        ------------------
+        
+        - Added Python 3.3 support.
+        
+        4.0.0 (2012-06-07)
+        ------------------
+
+%package legacypython
+Summary: legacypython components for the zope.location package.
+Group: Default
+Requires: python-core
+
+%description legacypython
+legacypython components for the zope.location package.
+
 
 %package python
 Summary: python components for the zope.location package.
 Group: Default
+Requires: zope.location-legacypython
+Requires: zope.location-python3
 
 %description python
 python components for the zope.location package.
+
+
+%package python3
+Summary: python3 components for the zope.location package.
+Group: Default
+Requires: python3-core
+
+%description python3
+python3 components for the zope.location package.
 
 
 %prep
 %setup -q -n zope.location-4.0.3
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1485888003
+export SOURCE_DATE_EPOCH=1512083369
 python2 setup.py build -b py2
 python3 setup.py build -b py3
 
@@ -53,16 +112,26 @@ python3 setup.py build -b py3
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-PYTHONPATH=%{buildroot}/usr/lib/python2.7/site-packages python2 setup.py test
+make check || :
 %install
-export SOURCE_DATE_EPOCH=1485888003
+export SOURCE_DATE_EPOCH=1512083369
 rm -rf %{buildroot}
 python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
 python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
+echo ----[ mark ]----
+cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
+echo ----[ mark ]----
 
 %files
 %defattr(-,root,root,-)
 
+%files legacypython
+%defattr(-,root,root,-)
+/usr/lib/python2*/*
+
 %files python
 %defattr(-,root,root,-)
-/usr/lib/python*/*
+
+%files python3
+%defattr(-,root,root,-)
+/usr/lib/python3*/*
