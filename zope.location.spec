@@ -4,26 +4,21 @@
 #
 Name     : zope.location
 Version  : 4.1.0
-Release  : 16
+Release  : 17
 URL      : https://pypi.python.org/packages/15/59/54b254aa3c820d778ec68b19082b7cc2b41bacb795c867641e6c15540950/zope.location-4.1.0.tar.gz
 Source0  : https://pypi.python.org/packages/15/59/54b254aa3c820d778ec68b19082b7cc2b41bacb795c867641e6c15540950/zope.location-4.1.0.tar.gz
 Summary  : Zope Location
 Group    : Development/Tools
 License  : ZPL-2.1
-Requires: zope.location-python3
-Requires: zope.location-license
-Requires: zope.location-python
-Requires: Sphinx
+Requires: zope.location-license = %{version}-%{release}
+Requires: zope.location-python = %{version}-%{release}
+Requires: zope.location-python3 = %{version}-%{release}
 Requires: setuptools
 Requires: zope.component
-Requires: zope.configuration
 Requires: zope.interface
 Requires: zope.proxy
 Requires: zope.schema
-Requires: zope.testrunner
-BuildRequires : pbr
-BuildRequires : pip
-BuildRequires : python3-dev
+BuildRequires : buildreq-distutils3
 BuildRequires : setuptools
 BuildRequires : zope.event
 BuildRequires : zope.interface
@@ -45,7 +40,7 @@ license components for the zope.location package.
 %package python
 Summary: python components for the zope.location package.
 Group: Default
-Requires: zope.location-python3
+Requires: zope.location-python3 = %{version}-%{release}
 
 %description python
 python components for the zope.location package.
@@ -68,8 +63,8 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1529091698
-python3 setup.py build -b py3
+export SOURCE_DATE_EPOCH=1541281538
+python3 setup.py build
 
 %check
 export http_proxy=http://127.0.0.1:9/
@@ -78,9 +73,9 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make check || :
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/zope.location
-cp LICENSE.txt %{buildroot}/usr/share/doc/zope.location/LICENSE.txt
-python3 -tt setup.py build -b py3 install --root=%{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/zope.location
+cp LICENSE.txt %{buildroot}/usr/share/package-licenses/zope.location/LICENSE.txt
+python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
@@ -89,8 +84,8 @@ echo ----[ mark ]----
 %defattr(-,root,root,-)
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/zope.location/LICENSE.txt
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/zope.location/LICENSE.txt
 
 %files python
 %defattr(-,root,root,-)
