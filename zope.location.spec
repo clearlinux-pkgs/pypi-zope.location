@@ -4,7 +4,7 @@
 #
 Name     : zope.location
 Version  : 4.2
-Release  : 39
+Release  : 40
 URL      : https://files.pythonhosted.org/packages/0c/c3/f9ab5358f8289fbd1996075ae1d7914b25cbfc1a65823ae0258aec03837d/zope.location-4.2.tar.gz
 Source0  : https://files.pythonhosted.org/packages/0c/c3/f9ab5358f8289fbd1996075ae1d7914b25cbfc1a65823ae0258aec03837d/zope.location-4.2.tar.gz
 Summary  : Zope Location
@@ -13,18 +13,12 @@ License  : ZPL-2.1
 Requires: zope.location-license = %{version}-%{release}
 Requires: zope.location-python = %{version}-%{release}
 Requires: zope.location-python3 = %{version}-%{release}
-Requires: setuptools
-Requires: zope.component
-Requires: zope.interface
-Requires: zope.proxy
-Requires: zope.schema
 BuildRequires : buildreq-distutils3
-BuildRequires : setuptools
-BuildRequires : zope.component
+BuildRequires : pypi(setuptools)
+BuildRequires : pypi(zope.interface)
+BuildRequires : pypi(zope.proxy)
+BuildRequires : pypi(zope.schema)
 BuildRequires : zope.event
-BuildRequires : zope.interface
-BuildRequires : zope.proxy
-BuildRequires : zope.schema
 
 %description
 ``zope.location``
@@ -70,15 +64,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1603409653
+export SOURCE_DATE_EPOCH=1641415339
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
-export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=auto "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
