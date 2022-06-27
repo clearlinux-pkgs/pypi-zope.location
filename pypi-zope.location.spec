@@ -4,7 +4,7 @@
 #
 Name     : pypi-zope.location
 Version  : 4.2
-Release  : 43
+Release  : 44
 URL      : https://files.pythonhosted.org/packages/0c/c3/f9ab5358f8289fbd1996075ae1d7914b25cbfc1a65823ae0258aec03837d/zope.location-4.2.tar.gz
 Source0  : https://files.pythonhosted.org/packages/0c/c3/f9ab5358f8289fbd1996075ae1d7914b25cbfc1a65823ae0258aec03837d/zope.location-4.2.tar.gz
 Summary  : Zope Location
@@ -66,7 +66,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1653003393
+export SOURCE_DATE_EPOCH=1656358778
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -109,7 +109,7 @@ export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3 "
 export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3 "
 python3 -tt setup.py build install --root=%{buildroot}-v3
 popd
-/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
