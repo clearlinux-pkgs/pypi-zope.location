@@ -4,7 +4,7 @@
 #
 Name     : pypi-zope.location
 Version  : 4.3
-Release  : 50
+Release  : 51
 URL      : https://files.pythonhosted.org/packages/95/b5/433d8cd402e82320063192c3413c44abb1d64a8162a13abce16f09c91b9e/zope.location-4.3.tar.gz
 Source0  : https://files.pythonhosted.org/packages/95/b5/433d8cd402e82320063192c3413c44abb1d64a8162a13abce16f09c91b9e/zope.location-4.3.tar.gz
 Summary  : Zope Location
